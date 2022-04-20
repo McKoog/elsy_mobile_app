@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-const String baseUrl = "http://192.168.4.22:80";
+const String baseUrl = "192.168.1.42:7241";
 
 const double fontSizeBody = 20;
 const double fontSizeHeader = 30;

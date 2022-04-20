@@ -70,16 +70,11 @@ class ApiStorageImplUser extends ApiStorageInterfaceUser {
 
   @override
   Future<bool> registerUser(SignUpUser user) async {
-    var request = await http.post(Uri.parse(baseUrl + "/api/user/signup"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          "name": user.name,
-          "email": user.email,
-          "password": user.password,
-          "mobile": user.mobile,
-        }));
+    Uri uri = Uri.http(baseUrl, '/User/RegisterUser',
+        {"id": "3", "name": user.name, "email" : user.email,"password" : user.password, "phone" : user.mobile});
+    var request = await http.post(uri);
+    print(uri);
+    print("${request.body}");
     if (request.statusCode == 200) {
       return true;
     } else {
