@@ -53,16 +53,13 @@ class ApiStorageImplUser extends ApiStorageInterfaceUser {
 
   @override
   Future<String> loginUser(LoginUser user) async {
-    var request = await http.post(Uri.parse(baseUrl + "/api/user/login"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(
-            <String, String>{"email": user.email, "password": user.password}));
-    print("${Uri.parse(baseUrl + "/api/user/login")}");
+    Uri uri = Uri.http(baseUrl, '/User/LoginUser',
+        {"email" : user.email,"password" : user.password});
+    var request = await http.get(uri);
+    print(uri);
     print("${request.body}");
     if (request.statusCode == 200) {
-      return json.decode(request.body);
+      return request.body;
     } else {
       return "";
     }
@@ -71,7 +68,7 @@ class ApiStorageImplUser extends ApiStorageInterfaceUser {
   @override
   Future<bool> registerUser(SignUpUser user) async {
     Uri uri = Uri.http(baseUrl, '/User/RegisterUser',
-        {"id": "3", "name": user.name, "email" : user.email,"password" : user.password, "phone" : user.mobile});
+        {"id": "4", "name": user.name, "email" : user.email,"password" : user.password, "phone" : user.mobile});
     var request = await http.post(uri);
     print(uri);
     print("${request.body}");

@@ -58,16 +58,16 @@ _locationData = await location.getLocation();
   }
 
   addMarkersToMap() async {
-    final markers = await apiStorageInterfaceMarkers.getMarkers();
-    print("$markers");
-    for (var i in markers) {
-      var id = i.id;
-      var lat = i.lat;
-      var lng = i.lng;
+    final stations = await apiStorageInterfaceMarkers.getMarkers();
+    print("$stations");
+    for (var i in stations) {
+      var id = i.stationId.toString();
+      var lat = i.location.lat;
+      var lng = i.location.long;
       var title = i.name;
-      var info = i.info;
-      var markerPosLat = i.lat;
-      var markerPosLng = i.lng;
+      var info = i.adress;
+      var markerPosLat = i.location.lat;
+      var markerPosLng = i.location.long;
 
       var nextMarker = new Marker(
           markerId: MarkerId(id),

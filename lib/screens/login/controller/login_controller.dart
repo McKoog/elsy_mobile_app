@@ -40,10 +40,10 @@ class LoginController extends GetxController {
         final loginResponse = await apiStorageInterface
             .loginUser(LoginUser(email: email, password: password));
         if (loginResponse != "") {
-          final user = await apiStorageInterface
-              .getUserFromToken(loginResponse.toString());
-          await localStorageInterface.saveToken(loginResponse.toString());
-          await localStorageInterface.setUserSettings(user);
+          //final user = await apiStorageInterface
+          //    .getUserFromToken(loginResponse.toString());
+          //await localStorageInterface.saveToken(loginResponse);
+          //await localStorageInterface.setUserSettings(user);
           await 2.delay();
           loginState(LoginState.initial);
           return true;
