@@ -14,10 +14,10 @@ class ApiStorageMarkerImpl extends ApiStorageInterfaceMarkers {
     print(uri);
     print("${request.body}");
     if (request.statusCode == 200) {
-      Iterable listJson = json.decode(request.body);
+      //Iterable listJson = json.decode(request.body);
       final List<Stations> stations = stationsFromJson(request.body.toString());
-      List<Markers> markersList =
-          List<Markers>.from(listJson.map((model) => Markers.fromJson(model)));
+      //List<Markers> markersList =
+      //     List<Markers>.from(listJson.map((model) => Markers.fromJson(model)));
       return stations;
     } else {
       throw Exception("ERROR! BAD DATA!");

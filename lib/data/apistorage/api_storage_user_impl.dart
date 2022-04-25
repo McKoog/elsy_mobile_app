@@ -11,13 +11,16 @@ import 'package:http/http.dart' as http;
 class ApiStorageImplUser extends ApiStorageInterfaceUser {
   @override
   Future<UserSettings> getUserFromToken(String token) async {
-    print("${Uri.parse(baseUrl + "/api/user/" + token)}");
+    Uri uri = Uri.http(baseUrl, '/User/GetUserSettingsFromToken',
+        {"token" : token});
+    var request = await http.get(uri);
+    /*print("${Uri.parse(baseUrl + "/api/user/" + token)}");
     var request = await http.get(
       Uri.parse(baseUrl + "/api/user/$token"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-    );
+    );*/
     print(request.body);
     if (request.statusCode == 200) {
       print("${UserSettings.fromJson(jsonDecode(request.body))}");
@@ -29,20 +32,23 @@ class ApiStorageImplUser extends ApiStorageInterfaceUser {
 
   @override
   Future<bool> changeUserSettings(String token, UserSettings user) async {
-    final queryParametr = {'token': token};
-    var uri = Uri.http(
-        "192.168.4.22:80", "/api/user/edit-user-settings", queryParametr);
-    var request = await http.post(uri,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'userId': token,
-          'name': user.name,
-          'email': user.email,
-          'fuelType': user.fuelType,
-          "fuelSize": user.fuelSize
-        }));
+    // final queryParametr = {'token': token};
+    // var uri = Uri.http(
+    //     "192.168.4.22:80", "/api/user/edit-user-settings", queryParametr);
+    // var request = await http.post(uri,
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: jsonEncode(<String, String>{
+    //       'userId': token,
+    //       'name': user.name,
+    //       'email': user.email,
+    //       'fuelType': user.fuelType,
+    //       "fuelSize": user.fuelSize
+    //     }));
+    Uri uri = Uri.http(baseUrl, '/User/ChangeUserSettings',
+        {"token" : token, "name" : user.name, "email" : user.email, "fuelType" : user.fuelType, "fuelSize": user.fuelSize});
+    var request = await http.post(uri);
     print(request.statusCode);
     if (request.statusCode == 200) {
       return true;

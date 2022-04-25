@@ -36,10 +36,10 @@ class LocalStorageImplUser extends LocalStorageInterfaceUser {
     final name = sharedPreferences.getString(pref_name);
     final email = sharedPreferences.getString(pref_email);
     final fuelType = sharedPreferences.getString(pref_fuelType);
-    final fuelSize = sharedPreferences.getString(pref_fuelSize);
+    final fuelSize = sharedPreferences.getString(pref_fuelSize)!;
 
     final userSettings = UserSettings(
-        name: name!, email: email!, fuelType: fuelType!, fuelSize: fuelSize!);
+        name: name!, email: email!, fuelType: fuelType!, fuelSize: fuelSize);
 
     return userSettings;
   }
@@ -51,7 +51,7 @@ class LocalStorageImplUser extends LocalStorageInterfaceUser {
     sharedPreferences.setString(pref_name, userSettings.name);
     sharedPreferences.setString(pref_email, userSettings.email);
     sharedPreferences.setString(pref_fuelType, userSettings.fuelType);
-    sharedPreferences.setString(pref_fuelSize, userSettings.fuelSize);
+    sharedPreferences.setString(pref_fuelSize, userSettings.fuelSize.toString());
 
     return userSettings;
   }
