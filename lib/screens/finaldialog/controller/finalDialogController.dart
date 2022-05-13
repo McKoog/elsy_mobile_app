@@ -73,21 +73,25 @@ class FinalDialogController extends GetxController {
     final token = await localStorageInterfaceUser.getToken();
     final fuelID = finalData[0];
     final fuelName = finalData[1];
-    final valueType = finalData[3];
-    final value = finalData[4];
-    final columnNumber = finalData[5];
-    final fuelType = finalData[6];
+    final columnNumber = finalData[3];
+    final typeOfFuel = finalData[4];
+    final litOrRub = finalData[5];
+    final rublesResult = finalData[6];
+    final litresResult = finalData[7];
 
     pickerController.animateToRow(int.parse(columnNumber) - 1, atSection: 0);
-    fuelTypeStandart.value = fuelType;
+    fuelTypeStandart.value = typeOfFuel;
 
-    if (valueType.toString() == "litre") {
-      litreTextController.text = value;
-      valueTextController.text = (double.parse(value!) * 50 /*valueFromTypeOfFuel.value*/).toString();
-    } else if (valueType.toString() == "money") {
-      valueTextController.text = value;
-      litreTextController.text = (double.parse(value!) / 50 /*valueFromTypeOfFuel.value*/).toString();
-    }
+    litreTextController.text = litresResult.toString();
+    valueTextController.text = rublesResult.toString();
+
+    // if (valueType.toString() == "litre") {
+    //   litreTextController.text = value;
+    //   valueTextController.text = (double.parse(value!) * 50 /*valueFromTypeOfFuel.value*/).toString();
+    // } else if (valueType.toString() == "money") {
+    //   valueTextController.text = value;
+    //   litreTextController.text = (double.parse(value!) / 50 /*valueFromTypeOfFuel.value*/).toString();
+    // }
   }
   navigateToPayDialog(){
 

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+
 import '/screens/finaldialog/finalDialog.dart';
 import '/screens/paydialog/controller/payController.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +110,103 @@ final Widget spacingH = SizedBox(
   height: 16,
 );
 
+Widget InputWindowLabel(String RubOrLit){
+  return Center(
+    child: Container(
+      decoration: BoxDecoration(
+        //border: Border.all(color: Colors.white.withOpacity(0.1)),
+        color: Colors.grey.shade800,
+      ),
+      //width: 140,
+      //height: 20,
+      child: RubOrLit == 'Rub' ? Text("Рубли", style: TextStyle(letterSpacing: 5)) : Text("Литры", style: TextStyle(letterSpacing: 5)),
+      padding: EdgeInsets.all(2),
+    ),
+  );
+}
+// Widget RublesCounter(
+//     BuildContext context,
+//     {
+//       required int currentLength,
+//       required int? maxLength,
+//       required bool isFocused,
+//     }
+//     ) {
+//   return Container(
+//     color: Colors.amber,
+//     child: Text(
+//       '$currentLength/$maxLength',
+//       semanticsLabel: 'character count',
+//     ),
+//   );
+// }
+
+Widget InputWindow(PayDialogController controller, String RubOrLit){
+  return Container(
+    width: 200,
+    height: 70,
+    decoration: BoxDecoration(
+        color: Color.fromRGBO(80, 80, 80, 1),
+        image: DecorationImage(
+            image: AssetImage("assets/backgroundLogin.png"),
+            fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(10),),
+    alignment: Alignment.center,
+    child: Center(
+      child: SizedBox(
+        width: 300,
+        height: 70,
+        child: Obx((){return TextFormField(
+          //autofocus: true,
+          inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[0-9]+")),LengthLimitingTextInputFormatter(RubOrLit == 'Rub' ? 5 : 3),],
+          keyboardType: TextInputType.numberWithOptions(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20, letterSpacing: 15),
+          //initialValue: controller.fullRublesResult.value.toStringAsFixed(2),
+          decoration: InputDecoration(
+            //labelText: 'Рубли',
+            helperText: RubOrLit == 'Rub' ? 'Рублей: ${controller.fullRublesResult.value.toStringAsFixed(2)}' :'Литров: ${controller.fullLitresResult.value.toStringAsFixed(2)}',
+            helperStyle: TextStyle(fontSize: 14,),
+            // suffixText: ".00",
+            // suffixStyle: TextStyle(fontSize: 20,),
+            label: InputWindowLabel(RubOrLit),
+            filled: true,
+            fillColor: Colors.grey.shade800,
+            hoverColor: Colors.grey.shade800.withOpacity(0.5),
+            enabledBorder: OutlineInputBorder(
+                borderSide:
+                BorderSide(color: Colors.white.withOpacity(0.1), width: 1)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderSide: BorderSide(color: Colors.white.withOpacity(0.5))),
+          ),
+          controller: RubOrLit == 'Rub' ? controller.RublesTextController : controller.LitreTextController,
+          onFieldSubmitted: (string){
+            if(RubOrLit == 'Rub'){
+              controller.fullRublesResult.value = int.tryParse(string)!.toDouble();
+              controller.fullLitresResult.value = controller.countFullResult(controller.fullRublesResult.value, 'Lit');
+              controller.LitreTextController.text = controller.fullLitresResult.toInt().toString();
+            }
+            else{
+              controller.fullLitresResult.value = int.tryParse(string)!.toDouble();
+              controller.fullRublesResult.value = controller.countFullResult(controller.fullLitresResult.value, 'Rub');
+              controller.RublesTextController.text = controller.fullRublesResult.toInt().toString();
+            }
+          },
+          onTap:(){
+            if(RubOrLit == 'Rub'){
+              controller.lastPicked = 'Rub';
+            }
+            else{
+              controller.lastPicked = 'Lit';
+            }
+          } ,
+        );}),
+      ),
+    ),
+  );
+}
+
 Widget LitreInputDialog(PayDialogController controller, String type){
   TextEditingController control;
   int maxLenght;
@@ -160,7 +259,7 @@ Widget LitreInputDialog(PayDialogController controller, String type){
                           width: 150,
                           height: 50,
                           child: TextFormField(
-                            autofocus: true,
+                            //autofocus: true,
                             inputFormatters: [FilteringTextInputFormatter.allow(RegExp("[0-9]+"))],
                             maxLength: maxLenght,
                             keyboardType: TextInputType.numberWithOptions(),

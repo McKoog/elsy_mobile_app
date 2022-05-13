@@ -117,6 +117,17 @@ class FuelDialogController extends GetxController {
       // "${fuelArgData[4]}",
       // "${fuelArgData[5]}",
     ]);
+    print(fuelArgData[0] +
+        " " +
+        fuelArgData[1] +
+        " " +
+        fuelArgData[2]+
+        " " +
+        trkPickerValue.value.toString() +
+        " " +
+        availableFuel[pickedOne] +
+        " " +
+        UserSettingsLiters);
   }
 
   onNextButtonTap() {

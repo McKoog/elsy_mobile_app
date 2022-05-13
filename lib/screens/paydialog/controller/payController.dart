@@ -73,6 +73,8 @@ class PayDialogController extends GetxController {
   bool canLitrePickerChange = true;
   List<bool> callbacksDone = [true,true,true,true,true,true,true,true];
 
+  String lastPicked = '';
+
   @override
   onInit() {
 
@@ -108,9 +110,8 @@ class PayDialogController extends GetxController {
 
      setLitresPickerAndMiliLiters(fullLitresResult.value);
      setRublesPickerAndKopeyki(fullRublesResult.value);
-
-
-
+     RublesTextController.text = fullRublesResult.value.toInt().toString();
+     LitreTextController.text = fullLitresResult.value.toInt().toString();
     super.onInit();
   }
 
@@ -436,29 +437,31 @@ class PayDialogController extends GetxController {
       "${payData[3]}", //Litre/Rub [2]
       "${payData[4]}", //Money or Litre value [3]
       //Column number [4]
-      "${standartFuel.value}", //Fuel Type [5]
-      "${payData[5]}",
-      "${payData[6]}",
-      "${payData[7]}",
+      "${lastPicked}",
+      "${fullRublesResult.value}",
+      "${fullLitresResult.value}",
+      // "${payData[6]}",
+      // "${payData[7]}",
     ]);
-    print(payData[0] +
+    print(payData[0].toString() +
         " " +
-        payData[1] +
+        payData[1].toString() +
         " " +
-        payData[2] +
+        payData[2].toString() +
         " " +
-        payData[3] +
+        payData[3].toString() +
         " " +
-        payData[4] +
+        payData[4].toString() +
         " " +
-        payData[5] +
+        standartFuel.value.toString() +
         " " +
-        payData[6] +
+        payData[5].toString() +
         " " +
-        payData[7] +
+        // payData[6] +
+        // " " +
+        // payData[7] +
         " " +
-        " " +
-        standartFuel.value);
+        " ");
   }
 
   navigateToFuelDialog() {
