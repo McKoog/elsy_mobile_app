@@ -1,40 +1,63 @@
+import 'package:elsy_mobile_app/data/apistorage/api_storage_fuel_dialog_data_impl.dart';
+
+import '../../../infrastructurestorage/data/api_storage_interface_data.dart';
+import '../../../infrastructurestorage/user/api_storage_user_infrastructure.dart';
+import '../../../models/dataServer/fuelDialogData.dart';
 import '/infrastructurestorage/user/local_storage_user_interface.dart';
 import '/routes/navigation.dart';
 import '/screens/paydialog/payDialog.dart';
 import '/utils/parseStandartSettings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:get/get.dart';
+import '../../../models/dataServer/Order.dart';
 
+List<String> GlobalFuels = ['ДТ','АИ-92','АИ-95','АИ-98'];
 class FuelDialogController extends GetxController {
 
-   String UserSettingsLiters = '';
+  String UserSettingsLiters = '';
 
+  Order order = Order();
   var fuelArgData = Get.arguments;
-  late List<int> list = [];
-  var trkPickerValue = 2.obs;
-  List<String> availableFuel = ['АИ-92','АИ-95','Premium','ДТ',].obs;
+  var trkPickerValue = 1.obs;
+  List<String> availableFuel = ['ДТ','АИ-92','АИ-95','АИ-98',].obs;
   List<Color?> colorsOfBlocks = [Colors.grey.shade800,Colors.grey.shade800,Colors.grey.shade800].obs;
   var pickedOne;
-
-  PickerController pickerController =
-      PickerController(count: 6, selectedItems: [0, 0, 0, 0, 0, 0]);
+  late Future<FuelDialogData> data;
+  String? clientId;
 
   final LocalStorageInterfaceUser localStorageInterfaceUser;
+  final ApiStorageInterfaceData apiStorageInterfaceData;
 
-  FuelDialogController({required this.localStorageInterfaceUser});
+   FuelDialogController(
+       {required this.localStorageInterfaceUser, required this.apiStorageInterfaceData});
 
   @override
   void onInit() {
     getStockLitres();
-    makeAvailableListOfFuelByNumber(trkPickerValue.value);
+    data = getFuelDialogData();
+    getClientId();
+    order.ClientId = clientId;
+
+    order.id = "1";
+    order.dateCreate = DateTime.now();
+    order.StationId = int.parse(fuelArgData[0]);
+
     super.onInit();
   }
 
   @override
   void onReady() {
     super.onReady();
+  }
+
+   getFuelDialogData(){
+    final d = apiStorageInterfaceData.getFuelDialogData(fuelArgData[0],fuelArgData[3]);
+    return d;
+  }
+
+  getClientId() async{
+    final clientId = await localStorageInterfaceUser.getToken();
   }
 
   getBonusUser() async {}
@@ -52,48 +75,26 @@ class FuelDialogController extends GetxController {
     trkPickerValue.value--;
   }
 
-  makeAvailableListOfFuelByNumber(int TRK){
+  makeAvailableListOfFuelByNumber(int TRK,List<FPData> fpData){
     pickedOne = null;
-    if (TRK == 1){
-      availableFuel.clear();
-      availableFuel.add('АИ-92');
-      availableFuel.add('АИ-95');
-      availableFuel.add('ДТ');
-      colorsOfBlocks.clear();
-      for (int i = 0; i <= availableFuel.length-1; i++){
-        colorsOfBlocks.add(Colors.grey.shade800);
-      }
-    }
-    if (TRK == 2) {
-      availableFuel.clear();
-      availableFuel.add('АИ-92');
-      availableFuel.add('АИ-95');
-      availableFuel.add('Premium');
-      colorsOfBlocks.clear();
-      for (int i = 0; i <= availableFuel.length-1; i++){
-        colorsOfBlocks.add(Colors.grey.shade800);
-      }
-    }
-    if (TRK == 3){
-      availableFuel.clear();
-      availableFuel.add('ДТ');
-      colorsOfBlocks.clear();
-      for (int i = 0; i <= availableFuel.length-1; i++){
-        colorsOfBlocks.add(Colors.grey.shade800);
-      }
-    }
-    if (TRK >= 4){
-      availableFuel.clear();
-      availableFuel.add('АИ-92');
-      availableFuel.add('АИ-95');
-      availableFuel.add('Premium');
-      availableFuel.add('ДТ');
-      // availableFuel.add('АИ-100');
-      // availableFuel.add('АИ-102');
-      colorsOfBlocks.clear();
-      for (int i = 0; i <= availableFuel.length-1; i++){
-        colorsOfBlocks.add(Colors.grey.shade800);
-      }
+    int c = 0;
+    for(int i = 0;i < fpData.length;i++){
+        if (fpData[i].id == TRK - 1) {
+          availableFuel.clear();
+          colorsOfBlocks.clear();
+          for (int k = 0; k < fpData[i].fuelsInfo!.length; k++) {
+            availableFuel.add(fpData[i].fuelsInfo![k].fuelName!);
+          }
+          for (int i = 0; i <= availableFuel.length - 1; i++) {
+            colorsOfBlocks.add(Colors.grey.shade800);
+          }
+        }
+        else{
+          c++;
+        }
+        if(c == fpData.length){
+          availableFuel.clear();
+        }
     }
   }
 
@@ -102,42 +103,36 @@ class FuelDialogController extends GetxController {
     Get.toNamed(Routes.qruser, preventDuplicates: false);
   }
 
-  navigateToPayDialog() {
+  navigateToPayDialog(FuelDialogData data) {
+
+    order.FuelPointId = trkPickerValue.value-1;
+    order.FuelId = pickedOne;
+    order.FuelMarka = availableFuel[pickedOne];
+    //order.PriceId =
+    order.Price = data.fPData!.firstWhere((element) => element.id == trkPickerValue.value-1).fuelsInfo![pickedOne].fuelPrice!;
+    order.PriceId = data.fPData!.firstWhere((element) => element.id == trkPickerValue.value-1).fuelsInfo![pickedOne].priceId!;
+
+
     Get.back();
     Get.dialog(PayDialog(), barrierDismissible: true, arguments: [
-      "${fuelArgData[0]}",
       "${fuelArgData[1]}",
       "${fuelArgData[2]}",
-      trkPickerValue.value, // Номер колонки
-      "${availableFuel[pickedOne]}", // Тип топлива
       UserSettingsLiters,
-      // "litre",
-      // "$result",
-      // "${fuelArgData[3]}",
-      // "${fuelArgData[4]}",
-      // "${fuelArgData[5]}",
+      order,
+      fuelArgData[3]
     ]);
-    print(fuelArgData[0] +
-        " " +
-        fuelArgData[1] +
-        " " +
-        fuelArgData[2]+
-        " " +
-        trkPickerValue.value.toString() +
-        " " +
-        availableFuel[pickedOne] +
-        " " +
-        UserSettingsLiters);
   }
 
-  onNextButtonTap() {
-    //TODO: Add check on null
+  onNextButtonTap(FuelDialogData data) {
+
     if(pickedOne != null) {
       if(Get.isSnackbarOpen){
-        Get.back();
-        navigateToPayDialog();
+        Get.back(closeOverlays: true);
+        navigateToPayDialog(data);
       }
-      else{navigateToPayDialog();}
+      else{
+        navigateToPayDialog(data);
+      }
     }
     else {
       if(!Get.isSnackbarOpen) {

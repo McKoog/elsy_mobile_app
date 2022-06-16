@@ -25,9 +25,7 @@ class SplashController extends GetxController {
 
   @override
   void onReady() {
-    apiStorageInterfaceMarkers
-        .getMarkers(); //Подгружаем объекты на карте на этом этапе, до инициализации самой карты.
-    mapController.addMarkersToMap(); //Добавляем объекты на камеру.
+
     validateSession();
     super.onReady();
   }
@@ -38,8 +36,11 @@ class SplashController extends GetxController {
     final token = await localStorageInterfaceUser.getToken();
 
     if (token != null) {
-      final user = await apiStorageInterfaceUser.getUserFromToken(token);
+      final UserApiKey = await apiStorageInterfaceUser.authorizeApiUser(token);
+      final user = await apiStorageInterfaceUser.getUserFromToken(token,UserApiKey);
       await localStorageInterfaceUser.setUserSettings(user);
+      MapScreenController.stationsFromSplash = await apiStorageInterfaceMarkers.getMarkers(UserApiKey);
+      MapScreenController.userApiKey = UserApiKey;
       Get.offNamed(Routes.map);
     } else {
       Get.offNamed(Routes.login);

@@ -16,6 +16,8 @@ class MapScreenController extends GetxController {
   final ApiStorageInterfaceUser apiStorageInterfaceUser;
   final ApiStorageInterfaceMarkers apiStorageInterfaceMarkers;
   final Location location = new Location();
+  static List<dynamic> stationsFromSplash = [];
+  static String userApiKey = "";
 
   
 
@@ -53,12 +55,12 @@ _locationData = await location.getLocation();
   @override
   void onInit() {
     getLocation();
-    addMarkersToMap();
+    print("Map INIT");
+    addMarkersToMap(stationsFromSplash);
     super.onInit();
   }
 
-  addMarkersToMap() async {
-    final stations = await apiStorageInterfaceMarkers.getMarkers();
+  addMarkersToMap(List<dynamic> stations) async {
     print("$stations");
     for (var i in stations) {
       var id = i.stationId.toString();
@@ -101,9 +103,7 @@ _locationData = await location.getLocation();
       "$id",
       "$title",
       "$info",
-      "$markerPosLat",
-      "$markerPosLng",
-      "${user.name}"
+      userApiKey
     ]);
   }
 
@@ -115,7 +115,8 @@ _locationData = await location.getLocation();
       "$title",
       "$info",
       "$markerPosLat",
-      "$markerPosLng"
+      "$markerPosLng",
+      userApiKey
     ]);
   }
 

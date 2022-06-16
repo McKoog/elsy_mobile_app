@@ -1,3 +1,6 @@
+
+import 'dart:io';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '/main_binding.dart';
 import '/routes/navigation.dart';
@@ -8,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
 }
 
@@ -39,5 +43,12 @@ class MyApp extends StatelessWidget {
         initialBinding: MainBinding(),
       ),
     );
+  }
+}
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

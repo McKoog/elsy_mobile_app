@@ -11,10 +11,6 @@ class PayDialog extends GetWidget<PayDialogController> {
   final payDialogController = Get.lazyPut(
       () => PayDialogController(localStorageInterfaceUser: Get.find()));
   Widget build(BuildContext context) {
-    double itemCountRubles = 0;
-    double itemCountLitres = 0;
-    if( controller.scheme == 'TwoFour'){ itemCountRubles = 4; itemCountLitres = 2; }
-    else { itemCountRubles = 5; itemCountLitres = 3;}
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
@@ -72,93 +68,16 @@ class PayDialog extends GetWidget<PayDialogController> {
                                 decoration: BoxDecoration(border: Border.symmetric(horizontal: BorderSide(color: Colors.white.withOpacity(0.2)))),
                                 child: Column(
                                   children: [
-                                    Text('Колонка № ${controller.TrkNumber}'),
+                                    Text('Колонка № ${controller.TrkNumber+1}'),
                                     SizedBox(height: 5,),
                                     Text('Тип топлива: ${controller.standartFuel}'),
                                   ],
                                 ),
                               ),
-                              //Text('Рубли', style: TextStyle(fontSize: 18),),
-                              InputWindow(controller,'Rub'),
-                              //Obx((){return Text('Рублей: ${controller.fullRublesResult.value.toStringAsFixed(2)}', style: TextStyle(fontSize: 16),);}),
-                              //MyOwnPickers(controller, 5, 'Rub'),
-                               // SizedBox(height: 5,),
-                              /*Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Obx((){return Text('Рублей: ${controller.fullRublesResult.value.toStringAsFixed(2)}', style: TextStyle(fontSize: 16),);}),
-                                  ),
-                                  Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      onTap: (){
-                                        Get.dialog(LitreInputDialog(controller,'Rubles'));
-                                      },
-                                      highlightColor: Colors.white10.withOpacity(0.01),
-                                      splashColor: Colors.white10.withOpacity(0.05),
-                                      child: Stack(
-                                        children: [
-                                          Positioned(
-                                            child: Container(height:30, width:148, decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.white38.withOpacity(0.08)),
-                                              borderRadius: BorderRadius.circular(2),
-                                              color: Colors.white38.withOpacity(0.05),),
-                                              child: Stack(children: [
-                                                Positioned(child: Icon(Icons.apps, size: 25, color: Colors.grey.shade500,),top: 1,left:5,),
-                                                Positioned(child: Icon(Icons.touch_app_rounded, size: 10,), top: 18, left: 20),
-                                                Positioned(child: Text('Ввести вручную', style: TextStyle(fontSize: 14),),left: 32, top: 7)
-                                              ],))
-                                          ),
 
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 5,)
-                                ],
-                              ),*/
+                              InputWindow(controller,'Rub'),
                               Container(height: 1,width: MediaQuery.of(context).size.width, color: Colors.white.withOpacity(0.2),),
-                              //Text('Литры', style: TextStyle(fontSize: 18),),
                               InputWindow(controller,'Lit'),
-                              //MyOwnPickers(controller, 3, 'Lit'),
-                              // SizedBox(height: 5,),
-                              // Column(
-                              //   children: [
-                              //     Padding(
-                              //       padding: const EdgeInsets.all(3.0),
-                              //       child: Obx((){return Text('Литров: ${controller.fullLitresResult.value.toStringAsFixed(2)}', style: TextStyle(fontSize: 16),);}),
-                              //     ),
-                              //     Material(
-                              //       color: Colors.transparent,
-                              //       child: InkWell(
-                              //         highlightColor: Colors.white10.withOpacity(0.01),
-                              //         splashColor: Colors.white10.withOpacity(0.05),
-                              //         onTap: (){
-                              //           Get.dialog(LitreInputDialog(controller,'Litres'));
-                              //         },
-                              //         child: Stack(
-                              //           children: [
-                              //             Positioned(
-                              //                 child: Container(height:30, width:148, decoration: BoxDecoration(
-                              //                   border: Border.all(color: Colors.white38.withOpacity(0.08)),
-                              //                   borderRadius: BorderRadius.circular(2),
-                              //                   color: Colors.white38.withOpacity(0.05),),
-                              //                     child: Stack(children: [
-                              //                       Positioned(child: Icon(Icons.apps, size: 25, color: Colors.grey.shade500,),top: 1,left:5,),
-                              //                       Positioned(child: Icon(Icons.touch_app_rounded, size: 10,), top: 18, left: 20),
-                              //                       Positioned(child: Text('Ввести вручную', style: TextStyle(fontSize: 14),),left: 32, top: 7)
-                              //                     ],))
-                              //             ),
-                              //
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     SizedBox(height: 5,)
-                              //   ],
-                              // ),
                               Container(height: 1,width: MediaQuery.of(context).size.width, color: Colors.white.withOpacity(0.2),),
                             ],
                           ),

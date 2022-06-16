@@ -65,77 +65,66 @@ class FinalDialog extends GetWidget<FinalDialogController> {
                                 right: 15,
                               ),
                               child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                  Text('Проверьте введенные данные', style: TextStyle(fontSize: 15)),
                                     spacingH,
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          columnNumberLabel,
-                                          darkBox(tilePicker(controller)),
-                                        ]),
+                                    Text('Проверьте введенные данные', style: TextStyle(fontSize: 15)),
                                     spacingH,
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          fuelTypeLabel,
-                                          customFuelTypeDarkBox(fuelPicker(controller),controller),
-                                        ]),
-
-                                    /*Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                    Container(height: 1,width: MediaQuery.of(context).size.width-45, color: Colors.white.withOpacity(0.2),),
+                                    Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(5),
+                                  //height: 43,
+                                  width: 350,
+                                  //decoration: BoxDecoration(border: Border.symmetric(horizontal: BorderSide(color: Colors.white.withOpacity(0.2)))),
+                                  child: Column(
                                       children: [
-                                        pricePerLiterLabel,
-                                        PricePerLiterField(controller),
+                                        Text('Колонка № ${controller.order!.FuelPointId!+1}',style: TextStyle(fontSize: 16),),
+                                        SizedBox(height: 5,),
+                                        Text('Тип топлива: ${controller.order!.FuelMarka}',style: TextStyle(fontSize: 16),),
                                       ],
                                     ),
-                                    spacingH,*/
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        litersLabel,
-                                        litreField(controller),
-                                      ],
-                                    ),
-                                    spacingH,
-                                    Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                  ),
+                                    Container(height: 1,width: MediaQuery.of(context).size.width-45, color: Colors.white.withOpacity(0.2),),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.all(5),
+                                      //height: 43,
+                                      width: 350,
+                                      //decoration: BoxDecoration(border: Border.(BorderSide(color: Colors.white.withOpacity(0.2)))),
+                                      child: Column(
                                         children: [
-                                          resultLabel,
-                                          resultField(controller)
-                                        ]),
-                                    spacingH,
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        dropBonusLabel,
-                                        customBonusDarkBox(bonusPicker),
-                                        /*Stack(
-                                          alignment: AlignmentDirectional.center,
-                                          children: [darkBox, bonusPicker],
-                                        ),*/
-                                      ],
+                                          Text('Сумма к оплате: ${controller.order!.ResultPrice!.toStringAsFixed(2)}',style: TextStyle(fontSize: 16),),
+                                          SizedBox(height: 5,),
+                                          Text('Количество топлива: ${controller.order!.ResultLitres!.toStringAsFixed(2)}',style: TextStyle(fontSize: 16),),
+                                        ],
+                                      ),
                                     ),
+                                    Container(height: 1,width: MediaQuery.of(context).size.width-45, color: Colors.white.withOpacity(0.2),),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      padding: EdgeInsets.all(5),
+                                      //height: 43,
+                                      width: 350,
+                                      //decoration: BoxDecoration(border: Border.(BorderSide(color: Colors.white.withOpacity(0.2)))),
+                                      child: Column(
+                                        children: [
+                                          Text('Количество бонусов: ${20}',style: TextStyle(fontSize: 16),),
+                                          SizedBox(height: 5,),
+                                          ElevatedButton(onPressed: (){},
+                                              child: Text("Списать бонусы",style: TextStyle(fontSize: 16),),
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.grey.shade700,
+                                              )
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(height: 1,width: MediaQuery.of(context).size.width-45, color: Colors.white.withOpacity(0.2),),
                                     spacingH,
-                                  ]),
-                            )),
+                                  ],
+                            )),),
                         spacingH,
                         Container(
                           width: 400,

@@ -1,8 +1,8 @@
+import '../../models/dataServer/fuelDialogData.dart';
 import '/routes/navigation.dart';
 import '/screens/fueldialog/controller/fuelDialogController.dart';
 import '/utils/parseStandartSettings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_picker_view/flutter_picker_view.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -12,11 +12,11 @@ final Widget fuelDialogLabel = Text(
   style: TextStyle(fontSize: 20),
 );
 
-Widget nextButton(FuelDialogController controller) {
+Widget nextButton(FuelDialogController controller, FuelDialogData data) {
   return SizedBox(
       height: 50,
       child: ElevatedButton(
-          onPressed: () => controller.onNextButtonTap(),
+          onPressed: () => controller.onNextButtonTap(data),
           style:
               ElevatedButton.styleFrom(primary: Color.fromRGBO(63, 81, 181, 1)),
           child: Text("fuel_dialog_next_button".tr)));
@@ -74,56 +74,12 @@ final Widget spacingH = SizedBox(
   height: 16,
 );
 
-Widget fuelPicker(FuelDialogController controller) {
-  return Container(
-      decoration: BoxDecoration(
-          color: Colors.blue, borderRadius: BorderRadius.circular(15)),
-      child: Container(
-          width: 150,
-          height: 40,
-          child: PickerView(
-            controller: controller.pickerController,
-            itemExtent: 40,
-            numberofRowsAtSection: (selection) {
-              return 10;
-            },
-            itemBuilder: (selection, row) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '$row',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  )
-                ],
-              );
-            },
-          )));
-}
-
-final Widget boxFuelPicker = Container(
-    height: 46,
-    width: 25,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(5),
-      border: Border.all(color: Color.fromRGBO(41, 41, 41, 0.5)),
-    ));
-
-final Widget rowGridforPicker = Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    boxFuelPicker,
-    boxFuelPicker,
-    boxFuelPicker,
-    boxFuelPicker,
-    boxFuelPicker,
-    boxFuelPicker
-  ],
-);
-
 class TrkPicker extends StatefulWidget {
-  TrkPicker({Key? key, this.controller}) : super(key: key);
+  TrkPicker({Key? key, this.controller, this.minNumber, this.maxNumber, this.data}) : super(key: key);
   FuelDialogController? controller;
+  int? minNumber;
+  int? maxNumber;
+  List<FPData>? data;
   @override
   _TrkPickerState createState() => _TrkPickerState();
 }
@@ -139,8 +95,8 @@ class _TrkPickerState extends State<TrkPicker> {
           itemCount: 3,
           itemHeight: 50,
           itemWidth: 65,
-          minValue: 1,
-          maxValue: 10,
+          minValue: widget.minNumber!,
+          maxValue: widget.maxNumber!,
           value: widget.controller!.trkPickerValue.value,
           axis: Axis.horizontal,
           decoration: BoxDecoration(
@@ -150,7 +106,8 @@ class _TrkPickerState extends State<TrkPicker> {
           ),
           onChanged: (int value) {
             setState(() => widget.controller!.trkPickerValue.value = value);
-            widget.controller!.makeAvailableListOfFuelByNumber(value);
+            widget.controller!.makeAvailableListOfFuelByNumber(value,widget.data!);
+
           },
         );
       }

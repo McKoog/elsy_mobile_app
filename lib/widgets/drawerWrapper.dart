@@ -1,10 +1,7 @@
 import '/data/localstorage/local_storage_user_impl.dart';
-import '/infrastructurestorage/user/local_storage_user_interface.dart';
-import '/models/user/settingsUser.dart';
 import '/routes/navigation.dart';
 import '/screens/cards/cardsScreen.dart';
 import '/screens/history/historyScreen.dart';
-import '/screens/payment_method/paymentMethodScreen.dart';
 import '/widgets/drawerController.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -33,14 +30,6 @@ class DrawerWrapper extends GetWidget<DraawerController>{
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        /*SvgPicture.asset(
-                          "assets/logo.svg",
-                          semanticsLabel: 'Acme Logo',
-                          height: 50,
-                          width: 50,
-                          color: Colors.white,
-                        ),*/
-                        //Image.asset("assets/Jpg_octan_test_logo.jpg", fit: BoxFit.fill,scale: 36,),
                         SvgPicture.asset(
                           "assets/octan_logo_test.svg",
                           semanticsLabel: 'Acme Logo',

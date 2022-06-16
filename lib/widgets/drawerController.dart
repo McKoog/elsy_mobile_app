@@ -1,3 +1,5 @@
+import 'package:elsy_mobile_app/screens/map/controller/mapController.dart';
+
 import '/infrastructurestorage/user/local_storage_user_interface.dart';
 import '/models/user/settingsUser.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,3 @@
-import '/data/localstorage/local_storage_user_impl.dart';
-
 parseSettingsSting(String value) {
   final splitSize = 1;
   RegExp exp = new RegExp(r"\d{" + "$splitSize" + "}");

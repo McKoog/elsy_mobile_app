@@ -1,3 +1,4 @@
+import '../../map/controller/mapController.dart';
 import '/infrastructurestorage/user/api_storage_user_infrastructure.dart';
 import '/infrastructurestorage/user/local_storage_user_interface.dart';
 import '/models/user/settingsUser.dart';
@@ -10,6 +11,7 @@ enum ProfileState { initial, loading }
 class ProfileController extends GetxController {
   final LocalStorageInterfaceUser localStorageInterfaceUser;
   final ApiStorageInterfaceUser apiStorageInterfaceUser;
+  final userApiKey = MapScreenController.userApiKey;
 
   ProfileController(
       {required this.localStorageInterfaceUser,
@@ -52,7 +54,7 @@ class ProfileController extends GetxController {
     await apiStorageInterfaceUser.changeUserSettings(
         token.toString(),
         UserSettings(
-            name: name, email: email, fuelType: fuelType, fuelSize: fuelSize));
+            name: name, email: email, fuelType: fuelType, fuelSize: fuelSize),userApiKey);
     try {
       await localStorageInterfaceUser.setUserSettings(UserSettings(
           name: name, email: email, fuelType: fuelType, fuelSize: fuelSize));

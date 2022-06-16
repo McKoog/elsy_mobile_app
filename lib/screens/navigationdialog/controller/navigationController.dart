@@ -11,8 +11,8 @@ class NavigationDialogController extends GetxController {
   final argumentData = Get.arguments;
 
   openGoogleMap() async {
-    var markerPosLat = argumentData[2].toString();
-    var markerPosLng = argumentData[3].toString();
+    var markerPosLat = argumentData[3].toString();
+    var markerPosLng = argumentData[4].toString();
     String googleMapUrl =
         'https://www.google.com/maps/search/?api=1&query=$markerPosLat,$markerPosLng';
     if (await canLaunch(googleMapUrl)) {
@@ -24,8 +24,8 @@ class NavigationDialogController extends GetxController {
   }
 
   openYandexMap() async {
-    var markerPosLat = argumentData[2].toString();
-    var markerPosLng = argumentData[3].toString();
+    var markerPosLat = argumentData[3].toString();
+    var markerPosLng = argumentData[4].toString();
     String yandexMapUrl =
         'yandexnavi://build_route_on_map?lat_to=$markerPosLat&lon_to=$markerPosLng';
     if (await canLaunch(yandexMapUrl)) {
@@ -40,17 +40,13 @@ class NavigationDialogController extends GetxController {
     var id = argumentData[0].toString();
     var title = argumentData[1].toString();
     var info = argumentData[2].toString();
-    var markerPosLat = argumentData[3].toString();
-    var markerPosLng = argumentData[4].toString();
     Get.back();
     final user = await localStorageInterfaceUser.getUserSettings();
     Get.dialog(FuelDialog(), barrierDismissible: true, arguments: [
       "$id",
       "$title",
       "$info",
-      // "$markerPosLat",
-      // "$markerPosLng",
-      // "${user.name}"
+      argumentData[5]
     ]);
   }
 }

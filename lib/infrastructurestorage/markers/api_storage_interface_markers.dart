@@ -1,3 +1,3 @@
 abstract class ApiStorageInterfaceMarkers {
-  Future<List> getMarkers();
+  Future<List> getMarkers(String userApiKey);
 }
