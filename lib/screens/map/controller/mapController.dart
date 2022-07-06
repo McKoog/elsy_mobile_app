@@ -1,3 +1,5 @@
+import 'package:elsy_mobile_app/models/user/settingsUser.dart';
+
 import '/infrastructurestorage/markers/api_storage_interface_markers.dart';
 import '/infrastructurestorage/user/api_storage_user_infrastructure.dart';
 import '/infrastructurestorage/user/local_storage_user_interface.dart';
@@ -18,7 +20,6 @@ class MapScreenController extends GetxController {
   final Location location = new Location();
   static List<dynamic> stationsFromSplash = [];
   static String userApiKey = "";
-
   
 
   MapScreenController({

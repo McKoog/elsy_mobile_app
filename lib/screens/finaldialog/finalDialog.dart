@@ -12,6 +12,7 @@ class FinalDialog extends GetWidget<FinalDialogController> {
   final historyController = Get.find<HistoryController>();
   final paymentMethodController = Get.lazyPut(
           () => PaymentMethodController(), fenix: true);
+  final payMethodController = Get.find<PaymentMethodController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class FinalDialog extends GetWidget<FinalDialogController> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Stack(children: [
-              const ModalBarrier(),
+              const ModalBarrier(dismissible: false,),
               Center(
                 child: Container(
                   margin: EdgeInsets.only(left: 15, right: 15, bottom: 0),

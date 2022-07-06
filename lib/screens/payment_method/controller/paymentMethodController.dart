@@ -43,19 +43,22 @@ class PaymentMethodController extends GetxController{
   }
 
   Future<String> pay(int index) async {
-    const String terminalKey = '1639122610375';
-    const String password = 'h7csawtx3lwe77l8';
-    const String publicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv5yse9ka3ZQE0feuGtemYv3IqOlLck8zHUM7lTr0za6lXTszRSXfUO7jMb+L5C7e2QNFs+7sIX2OQJ6a+HG8kr+jwJ4tS3cVsWtd9NXpsU40PE4MeNr5RqiNXjcDxA+L4OsEm/BlyFOEOh2epGyYUd5/iO3OiQFRNicomT2saQYAeqIwuELPs1XpLk9HLx5qPbm8fRrQhjeUD5TLO8b+4yCnObe8vy/BMUwBfq+ieWADIjwWCMp2KTpMGLz48qnaD9kdrYJ0iyHqzb2mkDhdIzkim24A3lWoYitJCBrrB2xM05sm9+OdCI1f7nPNJbl5URHobSwR94IRGT7CJcUjvwIDAQAB';
+    const String terminalKey = '1655724316760';
+    const String password = 'kjaty6sjyo93gghw';
+    const String publicKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv5yse9ka3ZQE0feuGtemYv3IqOlLck8zHUM7lTr0za6lXTszRSXfUO7jMb+L5C7e2QNFs+7sIX2OQJ6a+HG8k'
+        'r+jwJ4tS3cVsWtd9NXpsU40PE4MeNr5RqiNXjcDxA+L4OsEm/BlyFOEOh2epGyYUd5/iO3OiQFRNicomT2saQYAeqIwuELPs1XpLk9HLx5qPbm8fRrQhjeUD5TLO8b+4yCnObe8vy/BMUwBfq+ieWA'
+        'DIjwWCMp2KTpMGLz48qnaD9kdrYJ0iyHqzb2mkDhdIzkim24A3lWoYitJCBrrB2xM05sm9+OdCI1f7nPNJbl5URHobSwR94IRGT7CJcUjvwIDAQAB';
     const int amount = 100;
+    print(publicKey);
 
-    // String cardData = CardData(
-    //     pan: '5411420000000002',
-    //     expDate: '1222',
-    //     cvv: '139',
-    //     cardHolder: 'T. TESTING'
-    // ).encode(publicKey);
-
-    String cardData = PaymentMethod.PaymentMethod.cardsInfo[index].encode(publicKey);
+    String cardData = CardData(
+        pan: '4276220014958501',
+        expDate: '1222',
+        cvv: '139',
+        cardHolder: 'ANDREY KOLYADICH'
+    ).encode(publicKey);
+    /*print(PaymentMethod.PaymentMethod.cardsInfo[index]);
+    String cardData = PaymentMethod.PaymentMethod.cardsInfo[index].encode(publicKey);*/
     print(cardData);
 
       final TinkoffAcquiring acquiring = TinkoffAcquiring(
@@ -67,7 +70,6 @@ class PaymentMethodController extends GetxController{
       );
 
       final InitResponse init = await acquiring.init(InitRequest(
-        customerKey: 'ThatsMe',
           orderId: (99 +
               math.Random(DateTime
                   .now()
@@ -77,15 +79,21 @@ class PaymentMethodController extends GetxController{
           amount: amount,
           language: Language.ru,
           payType: PayType.one,
-          receipt: Receipt(taxation: Taxation.osn, items: [Items(
+          /*receipt: Receipt(taxation: Taxation.osn, items: [Items(
             name: 'name',
             amount: amount.toString(),
             tax: Tax.vat10,
             price: '100',
             quantity: '1.00',
           )
-          ], email: 'koliandru@mail.ru')
+          ], email: 'koliandru@mail.ru')*/
       ));
+
+      print("INIT : " + init.status.toString());
+
+      /*final CancelResponse cancel = await acquiring.cancel(CancelRequest(paymentId: int.parse(init.paymentId!)));
+
+      print("CANCEL: " + cancel.status.toString());*/
 
     //   final getQr = await acquiring.getQr(
     //     GetQrRequest(
@@ -131,6 +139,7 @@ class PaymentMethodController extends GetxController{
         cardData: cardData,
         data: await data.future,
       ));
+
 
 
       final Completer<Submit3DSAuthorizationResponse?> webView =

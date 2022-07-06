@@ -24,7 +24,7 @@ class FuelDialog extends GetWidget<FuelDialogController> {
           return Scaffold(
               backgroundColor: Colors.transparent,
               body: Stack(children: [
-                const ModalBarrier(),
+                const ModalBarrier(dismissible: false,),
                 Center(
                   child: Container(
                     margin: EdgeInsets.only(left: 15, right: 15, bottom: 0),
@@ -74,7 +74,7 @@ class FuelDialog extends GetWidget<FuelDialogController> {
                                     width: 200,
                                     decoration: BoxDecoration(
                                       border: Border.all(color: Colors.white),
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(3),
                                       color: Colors.grey.shade800,
                                     ),
                                     child: Obx(() {

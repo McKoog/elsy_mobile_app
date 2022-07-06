@@ -22,7 +22,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
   Widget build(BuildContext context) {
       return Container(
 
-          height: widget.controller!.constraints!.maxHeight/2+widget.controller!.constraints!.maxHeight/6,
+          height: widget.controller!.constraints!.maxHeight/2+widget.controller!.constraints!.maxHeight/3.8,
           width: widget.controller?.constraints!.maxWidth,
           color: Colors.grey.shade600.withOpacity(0.2),
           child: Obx((){return ListView.builder(itemBuilder: (BuildContext context,int index){
@@ -61,9 +61,14 @@ Widget methodGooglePay(BoxConstraints constraints){
       print(PaymentMethod.cardsInfo);
     },
     child: Container(
-      height: constraints.maxHeight/8,
+      height: constraints.maxHeight/11,
       width: constraints.maxWidth,
-      color: Colors.grey.shade700.withOpacity(0.2),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade400.withOpacity(0.1),
+        ),
+          color: Colors.grey.shade700.withOpacity(0.3)
+      ),
+      //color: Colors.grey.shade700.withOpacity(0.3),
       child: Center(child: Text('GooglePay')),
     ),
   );

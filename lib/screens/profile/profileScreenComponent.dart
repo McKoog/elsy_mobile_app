@@ -159,7 +159,7 @@ Widget saveButton(ProfileController profileController, double width) {
       height: 50,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Color.fromRGBO(63, 81, 181, 1),
+            primary: /*Color.fromRGBO(63, 81, 181, 1),*/Colors.grey.shade400.withOpacity(0.5),
           ),
           onPressed: () => profileController.onSetSettingsButtonTap(),
           child: Text("profile_save_button".tr)));

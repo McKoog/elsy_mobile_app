@@ -29,10 +29,10 @@ class PaymentMethodScreen extends GetWidget<PaymentMethodController> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               title(),
-              SizedBox(height: 20,),
+              SizedBox(height: 8,),
               PaymentMethod(controller: controller),
               methodGooglePay(constraints),
-              SizedBox(height: 10,),
+              //SizedBox(height: 10,),
               addCardButton(controller),
             ],
           );
@@ -54,13 +54,20 @@ class PaymentMethodScreenOnFinal extends GetWidget<PaymentMethodController> {
           controller.constraints = constraints;
           return Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
+            //mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              title(),
+              /*title(),
               SizedBox(height: 20,),
               PaymentMethod(controller: controller),
               methodGooglePay(constraints),
               SizedBox(height: 10,),
+              addCardButton(controller),*/
+              SizedBox(height: 8 ,),
+              title(),
+              SizedBox(height: 8,),
+              PaymentMethod(controller: controller),
+              methodGooglePay(constraints),
+              //SizedBox(height: 10,),
               addCardButton(controller),
             ],
           );

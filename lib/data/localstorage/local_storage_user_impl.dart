@@ -7,6 +7,8 @@ const pref_email = "EMAIL";
 const pref_name = "NAME";
 const pref_fuelType = "FUELTYPE";
 const pref_fuelSize = "FUELSIZE";
+const pref_bonusToken = "BONUSTOKEN";
+const pref_cardNumber = "CARDNUMBER";
 
 class LocalStorageImplUser extends LocalStorageInterfaceUser {
   @override

@@ -9,7 +9,7 @@ Widget googleButton(NavigationDialogController controller) {
       child: ElevatedButton(
           onPressed: () => controller.openYandexMap(),
           style:
-              ElevatedButton.styleFrom(primary: Color.fromRGBO(63, 81, 181, 1)),
+              ElevatedButton.styleFrom(primary: /*Color.fromRGBO(63, 81, 181, 1)*/Colors.grey.shade800.withOpacity(0.6)),
           child: Text("navigation_dialog_yandex_button".tr,
               style: TextStyle(fontSize: 14))));
 }
@@ -21,7 +21,7 @@ Widget yandexButton(NavigationDialogController controller) {
       child: ElevatedButton(
           onPressed: () => controller.openGoogleMap(),
           style:
-              ElevatedButton.styleFrom(primary: Color.fromRGBO(63, 81, 181, 1)),
+              ElevatedButton.styleFrom(primary: /*Color.fromRGBO(63, 81, 181, 1)*/Colors.grey.shade800.withOpacity(0.6)),
           child: Text("navigation_dialog_google_button".tr,
               style: TextStyle(fontSize: 14))));
 }

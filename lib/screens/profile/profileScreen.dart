@@ -25,7 +25,7 @@ class ProfileScreen extends GetWidget<ProfileController> {
                 children: [
                   Container(
                       decoration: BoxDecoration(
-                        color: Color.fromRGBO(63, 81, 181, 1),
+                        color: /*Color.fromRGBO(63, 81, 181, 1),*/Colors.grey.shade400.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                           image: AssetImage("assets/backgroundLogin.png"),

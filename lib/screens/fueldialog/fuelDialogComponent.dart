@@ -18,8 +18,8 @@ Widget nextButton(FuelDialogController controller, FuelDialogData data) {
       child: ElevatedButton(
           onPressed: () => controller.onNextButtonTap(data),
           style:
-              ElevatedButton.styleFrom(primary: Color.fromRGBO(63, 81, 181, 1)),
-          child: Text("fuel_dialog_next_button".tr)));
+              ElevatedButton.styleFrom(primary: Color.fromRGBO(38, 97, 37, 1).withOpacity(0.3)),
+          child: Text(/*"fuel_dialog_next_button".tr*/"column_dialog_pay_button".tr)));
 }
 
 Widget qrButton(FuelDialogController controller) {
@@ -123,16 +123,20 @@ Widget TrkTable(FuelDialogController controller,int index){
       },
       child: Obx((){
         return Container(
-        width: 200,
-        height: 50,
-        decoration: BoxDecoration(
-            border: Border.symmetric(
+          width: 200,
+          height: 50,
+          decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(
+              color: Colors.white.withOpacity(0.5),),
+          ),
+
+            /*border: Border.symmetric(
                 horizontal: BorderSide(
-                    color: Colors.white.withOpacity(0.5)),),
+                    color: Colors.white.withOpacity(0.5)),),*/
           color: controller.colorsOfBlocks[index],
         ),
-        child: Center(child: Text(
-            controller.availableFuel[index],style: TextStyle( fontSize: 20),),),
+          child: Center(child: Text(
+          controller.availableFuel[index],style: TextStyle( fontSize: 20),),),
       );
     },),
   );
@@ -155,4 +159,3 @@ Widget AddSubtract(Widget child, FuelDialogController controller){
     ],
   );
 }
-

@@ -61,12 +61,13 @@ class DrawerWrapper extends GetWidget<DraawerController>{
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 10,top: 5),
+                      padding: const EdgeInsets.only(left: 10,top: 3),
                       child: Text(
                         "drawer_navigation_user".tr + ':',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15,color:Colors.white.withOpacity(0.7), ),
                       ),
                     ),
+                    Container(width: 150, height: 1, color: Colors.white.withOpacity(0.7),),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -74,17 +75,19 @@ class DrawerWrapper extends GetWidget<DraawerController>{
                         SizedBox(
                           width: 2,
                         ),
-                        Column(
-                          children: [
-                            SizedBox(height: 0),
-                            Text(controller.NameOfUser()),
-                            SizedBox(height: 5),
-                            Text(controller.EmailOfUser()),
-                          ],
+                        Flexible(
+                          child: Column(
+                            children: [
+                              SizedBox(height: 0),
+                              Text(controller.NameOfUser(),overflow: TextOverflow.ellipsis,),
+                              SizedBox(height: 0),
+                              Text(controller.EmailOfUser(),overflow: TextOverflow.ellipsis,),
+                            ],
+                          ),
                         ),
 
                         Container(
-                            margin: EdgeInsets.only(right: 5),
+                            margin: EdgeInsets.only(right: 15,bottom: 10),
                             height: 30,
                             width: 20,
                             decoration: BoxDecoration(
@@ -96,7 +99,7 @@ class DrawerWrapper extends GetWidget<DraawerController>{
                                 LocalStorageImplUser().clearAllData();
                                 Get.offAllNamed(Routes.login);
                               },
-                              iconSize: 15,
+                              iconSize: 25,
                               icon: Icon(Icons.logout_sharp),
                             ))
                       ],
@@ -140,7 +143,7 @@ class DrawerWrapper extends GetWidget<DraawerController>{
               Text("drawer_navigation_card".tr)
             ]),
             onTap: () {
-              Get.to(CardScreen());
+              Get.toNamed(Routes.cardBonus);
             },
           ),
           ListTile(

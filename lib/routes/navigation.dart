@@ -1,3 +1,6 @@
+import 'package:elsy_mobile_app/screens/cards/cardsScreen.dart';
+import 'package:elsy_mobile_app/screens/cards/controller/cardsBindings.dart';
+
 import '/screens/login/controller/login_binding.dart';
 import '/screens/login/loginScreen.dart';
 import '/screens/map/controller/mapBinding.dart';
@@ -25,6 +28,7 @@ class Routes {
   static final String profile = '/profile';
   static final String qruser = '/qruser';
   static final String cardPay = '/cardPay';
+  static final String cardBonus = '/cardBonus';
 }
 
 class RoutePages {
@@ -46,6 +50,9 @@ class RoutePages {
     GetPage(
         name: '/cardPay',
         page: () => PaymentMethodScreen(),
-        binding: PaymentMethodBinding())
+        binding: PaymentMethodBinding()),
+    GetPage(name: '/cardBonus',
+        page: () => CardScreen(),
+        binding: CardsBinding())
   ];
 }

@@ -29,9 +29,9 @@ class DraawerController extends GetxController{
   }
 
   String NameOfUser(){
-    return user!.name.toString();
+    return user!.name;
   }
   String EmailOfUser(){
-    return user!.email.toString();
+    return user!.email;
   }
 }

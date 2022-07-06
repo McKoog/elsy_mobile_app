@@ -73,7 +73,7 @@ class ApiStorageImplUser extends ApiStorageInterfaceUser {
   @override
   Future<bool> registerUser(SignUpUser user) async {
     Uri uri = Uri.https(baseUrl, '/User/RegisterUser',
-        {"id": "4", "name": user.name, "email" : user.email,"password" : user.password, "phone" : user.mobile});
+        {"id": "4", "name": user.name, "email" : user.email,"password" : user.password, "phone" : user.mobile, "role" : "standart"});
     var request = await http.post(uri,headers: {
       "Accept": "text/plain",
       "Access-Control-Allow-Origin" : "https://192.168.4.22:7242",

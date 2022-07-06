@@ -35,12 +35,12 @@ Widget payButton(BuildContext context,HistoryController controller,FinalDialogCo
                 + '\n' + controller2.finalData[1].toString().substring(controller2.finalData[1].toString().indexOf(' ',4));
             controller.amount = controller2.order!.ResultLitres!.toStringAsFixed(2);
             controller.fuelSpotAndType = 'ТРК №' + ((controller2.order!.FuelPointId!+1).toString() + '\n' + controller2.order!.FuelMarka!);
-            controller.priceAndBonus = controller2.order!.ResultPrice!.toStringAsFixed(2) + ' руб. \n ( +30 )';
+            controller.priceAndBonus = controller2.order!.ResultPrice!.toStringAsFixed(2) + '\n ( +30 )';
             controller.addItem(context, controller);
-            //print(controller2.pay());
+            //controller3.pay(0);
             Get.dialog(PaymentMethodScreenOnFinal());
           },
-          style: ElevatedButton.styleFrom(primary: Colors.green),
+          style: ElevatedButton.styleFrom(primary: Color.fromRGBO(38, 97, 37, 1).withOpacity(0.3)),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(Icons.payment),
             Text("final_dialog_pay_button".tr)
@@ -52,7 +52,7 @@ Widget backButton(FinalDialogController controller) {
       height: 50,
       child: ElevatedButton(
         onPressed: () => controller.onBackButtonTap(),
-        style: ElevatedButton.styleFrom(primary: Colors.red),
+        style: ElevatedButton.styleFrom(primary: Color.fromRGBO(97, 37, 37, 1).withOpacity(0.3)),
         child: Text("register_back_button".tr),
       ));
 }

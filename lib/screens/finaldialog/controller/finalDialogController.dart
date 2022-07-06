@@ -21,7 +21,7 @@ class FinalDialogController extends GetxController {
 
   Order? order;
 
-  Future<String> pay() async {
+  /*Future<String> pay() async {
     const String terminalKey = '1605280872049';
     const String password = 'xtiprrmg73jkiklh';
     const int amount = 10;
@@ -58,7 +58,7 @@ class FinalDialogController extends GetxController {
       ),
     );
     return getState.status.toString();
-  }
+  }*/
   @override
   onInit() {
     order = finalData[3];

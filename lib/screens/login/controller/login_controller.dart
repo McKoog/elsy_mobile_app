@@ -1,3 +1,6 @@
+import 'package:elsy_mobile_app/infrastructurestorage/markers/api_storage_interface_markers.dart';
+
+import '../../map/controller/mapController.dart';
 import '/infrastructurestorage/user/api_storage_user_infrastructure.dart';
 import '/infrastructurestorage/user/local_storage_user_interface.dart';
 import '/models/user/loginUser.dart';
@@ -11,10 +14,11 @@ enum LoginState { initial, loading }
 
 class LoginController extends GetxController {
   final ApiStorageInterfaceUser apiStorageInterface;
+  final ApiStorageInterfaceMarkers apiStorageInterfaceMarkers;
   final LocalStorageInterfaceUser localStorageInterface;
 
   LoginController(
-      {required this.localStorageInterface, required this.apiStorageInterface});
+      {required this.localStorageInterface, required this.apiStorageInterface, required this.apiStorageInterfaceMarkers});
 
   final emailTextController = TextEditingController();
   final passwordTextController = TextEditingController();
@@ -41,10 +45,13 @@ class LoginController extends GetxController {
             .loginUser(LoginUser(email: email, password: password));
         if (loginResponse != "") {
           final userApiKey = await apiStorageInterface.authorizeApiUser(loginResponse);
-          final user = await apiStorageInterface
-              .getUserFromToken(loginResponse,userApiKey);
+          /*MapScreenController.User = await apiStorageInterface
+              .getUserFromToken(loginResponse,userApiKey);*/
           await localStorageInterface.saveToken(loginResponse);
-          await localStorageInterface.setUserSettings(user);
+          MapScreenController.userApiKey = userApiKey;
+          await localStorageInterface.setUserSettings(await apiStorageInterface
+              .getUserFromToken(loginResponse,userApiKey));
+          MapScreenController.stationsFromSplash = await apiStorageInterfaceMarkers.getMarkers(userApiKey);
           await 2.delay();
           loginState(LoginState.initial);
           return true;

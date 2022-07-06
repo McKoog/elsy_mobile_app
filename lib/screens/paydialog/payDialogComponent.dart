@@ -26,7 +26,7 @@ Widget nextButton(PayDialogController controller) {
       child: ElevatedButton(
           onPressed: () => controller.onNextButtonTap(),
           style:
-              ElevatedButton.styleFrom(primary: Color.fromRGBO(63, 81, 181, 1)),
+              ElevatedButton.styleFrom(primary: Color.fromRGBO(38, 97, 37, 1).withOpacity(0.3).withOpacity(0.4)),
           child: Text("column_dialog_pay_button".tr)));
 }
 
@@ -35,7 +35,7 @@ Widget backButton(PayDialogController controller) {
       height: 50,
       child: ElevatedButton(
         onPressed: () => controller.onBackButtonTap() ,
-        style: ElevatedButton.styleFrom(primary: Colors.red),
+        style: ElevatedButton.styleFrom(primary: Color.fromRGBO(97, 37, 37, 1).withOpacity(0.3)),
         child: Text("register_back_button".tr),
       ));
 }

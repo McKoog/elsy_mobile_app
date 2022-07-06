@@ -15,7 +15,7 @@ class PayDialog extends GetWidget<PayDialogController> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.transparent,
         body: Stack(children: [
-          const ModalBarrier(),
+          const ModalBarrier(dismissible: false,),
           Center(
             child: Container(
               margin: EdgeInsets.only(left: 15, right: 15, bottom: 0),

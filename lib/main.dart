@@ -9,10 +9,11 @@ import '/utils/translation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/services.dart';
-
+final navigatorKey = GlobalKey<NavigatorState>();
 void main() {
   HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
+  //runApp(MaterialApp(home: MyApp(),navigatorKey: navigatorKey,debugShowCheckedModeBanner: false,));
 }
 
 /*
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       light: mainLightTheme,
       initial: AdaptiveThemeMode.dark,
       builder: (light, dark) => GetMaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         translations: TextLocalization(),
         locale: Locale('ru', 'RU'),

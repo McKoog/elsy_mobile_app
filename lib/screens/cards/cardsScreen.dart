@@ -1,63 +1,62 @@
+import 'package:elsy_mobile_app/screens/cards/cardsScreenComponent.dart';
+import 'package:flutter/cupertino.dart';
+
+import '../../widgets/drawerWrapper.dart';
 import '/widgets/appbarWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CardScreen extends GetWidget {
+import 'controller/cardsController.dart';
+
+class CardScreen extends GetWidget<CardsController> {
+  final cardsController = Get.find<CardsController>();
   @override
   Widget build(BuildContext context) {
-    int index = 0;
-    final items = List.generate(40, (counter) => '$counter');
+    //final items = List.generate(40, (counter) => '$counter');
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40),
-          child: AppBarWrapper(),
+      resizeToAvoidBottomInset: false,
+      drawer: DrawerWrapper(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(40),
+        child: AppBarWrapper(),
+      ),
+        body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            controller.constraints = constraints;
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              //mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                BonusCard(controller: controller),
+                Container(
+                  alignment: Alignment.center,
+                  width: constraints.maxWidth,
+                  color: Colors.grey.shade600.withOpacity(0.3),
+                    child: Text("Для удаления карты, сдвиньте её влево",
+                      style: TextStyle(color: Colors.red.shade500.withOpacity(0.4)),)
+                ),
+                addCardButton(controller),
+              ],
+            );
+          },
         ),
-        body: Container(
-            margin: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+
+        /*Container(
+            //margin: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
             child: Container(
-              color: Colors.grey,
-              height: MediaQuery.of(context).size.height/2,
-              width: MediaQuery.of(context).size.width - 30,
+              color: Colors.grey.shade900,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: ListView.separated(
                   itemBuilder: (context, index) {
-                    final item = items[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.green),
-                      child: Center(
-                          child: SizedBox(
-                              height: 70,
-                              width: 140,
-                              child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          height: 50,
-                                          width: 70,
-                                          child: Center(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                  color: Colors.red),
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          item,
-                                          textAlign: TextAlign.center,
-                                        )
-                                      ])))),
-                    );
+                    //final item = items[index];
+                    return BonusCard(index);
                   },
                   separatorBuilder: (context, index) => Divider(
+                    height: 1,
                         color: Colors.transparent,
                       ),
-                  itemCount: 40),
-            )));
+                  itemCount: 1),
+            ))*/);
   }
 }
